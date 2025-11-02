@@ -1,26 +1,29 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./pages/Login"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NoMatch from "./pages/NoMatch";
 
 export default function App() {
+  const handleLogin = (username: string) => {
+    localStorage.setItem("username", username);
+  };
+
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          {/* ProtectedRoute for more security */}
-          <Route path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            } />
-          {/* NoMatch page for unavailable pages */}
-          <Route path="*" element={<NoMatch />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
