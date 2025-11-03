@@ -14,29 +14,23 @@ import {
 } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-interface NavbarProps {
-  onLogout: () => void;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ onLogout }) => {
+const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [cities, setCities] = useState<string[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const storedName = localStorage.getItem("username");
+    if (storedName) setUsername(storedName);
+
     const fetchCities = async () => {
       try {
-        const res = await axios.get(
-          "https://countriesnow.space/api/v0.1/countries"
-        );
+        const res = await axios.get("https://countriesnow.space/api/v0.1/countries");
         const iran = res.data.data.find((c: any) => c.country === "Iran");
         setCities(iran?.cities.slice(0, 10) || []);
       } catch (err) {
@@ -45,6 +39,16 @@ const Navbar: React.FC<NavbarProps> = ({ onLogout }) => {
     };
     fetchCities();
   }, []);
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => setAnchorEl(null);
+
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    navigate("/login");
+  };
 
   return (
     <AppBar position="static" color="primary">
@@ -55,24 +59,20 @@ const Navbar: React.FC<NavbarProps> = ({ onLogout }) => {
           backgroundColor: "white",
         }}
       >
+        
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Box
             component="img"
-            src="../../public/imgs/weather.png"
+            src="/imgs/weather.png"
             alt="weather logo"
-            sx={{
-              width: 50,
-              borderRadius: 9999,
-            }}
+            sx={{ width: 50, borderRadius: "50%" }}
           />
-
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: "bold", color: "#003464" }}
-          >
+          <Typography variant="h6" sx={{ fontWeight: "bold", color: "#003464" }}>
             Weather Dashboard
           </Typography>
         </Box>
+
+        
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <FormControl
             size="small"
@@ -101,14 +101,8 @@ const Navbar: React.FC<NavbarProps> = ({ onLogout }) => {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
           >
             <Box
               sx={{
@@ -117,8 +111,18 @@ const Navbar: React.FC<NavbarProps> = ({ onLogout }) => {
                 display: "flex",
                 flexDirection: "column",
                 gap: 1,
+                minWidth: 180,
               }}
             >
+              {username && (
+                <Typography
+                  variant="subtitle1"
+                  sx={{ fontWeight: "bold", color: "#003464", mb: 1 }}
+                >
+                  Welcome, {username}
+                </Typography>
+              )}
+
               <Typography variant="subtitle2">Language</Typography>
               <Box sx={{ display: "flex", gap: 1 }}>
                 <Button variant="outlined" size="small">
@@ -146,10 +150,7 @@ const Navbar: React.FC<NavbarProps> = ({ onLogout }) => {
                 color="error"
                 size="small"
                 sx={{ mt: 2 }}
-                onClick={() => {
-                  handleMenuClose();
-                  onLogout();
-                }}
+                onClick={handleLogout}
               >
                 Logout
               </Button>
