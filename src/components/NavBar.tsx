@@ -17,15 +17,19 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useThemeContext } from "../context/ThemeContext";
+import { useTranslation } from "react-i18next";
+import { useLanguage } from "../context/LanguageContext";
 
 const Navbar: React.FC = () => {
   const theme = useTheme();
   const { mode, toggleTheme } = useThemeContext();
+  const { t } = useTranslation();
+  const { lang, setLanguage } = useLanguage();
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [cities, setCities] = useState<string[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>("");
   const [username, setUsername] = useState<string>("");
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,11 +50,8 @@ const Navbar: React.FC = () => {
     fetchCities();
   }, []);
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
-
   const handleLogout = () => {
     localStorage.removeItem("username");
     navigate("/login");
@@ -65,9 +66,9 @@ const Navbar: React.FC = () => {
           backgroundColor: theme.palette.background.paper,
           color: theme.palette.text.primary,
           transition: "background-color 0.3s ease",
+          flexDirection: lang === "fa" ? "row-reverse" : "row",
         }}
       >
-        {/* Logo */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Box
             component="img"
@@ -80,7 +81,6 @@ const Navbar: React.FC = () => {
           </Typography>
         </Box>
 
-        {/* Menu */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <FormControl
             size="small"
@@ -90,17 +90,14 @@ const Navbar: React.FC = () => {
               borderRadius: 1,
             }}
           >
-            <InputLabel id="city-label">City</InputLabel>
+            <InputLabel id="city-label">{t("city")}</InputLabel>
             <Select
               labelId="city-label"
               value={selectedCity}
-              label="City"
               onChange={(e) => setSelectedCity(e.target.value)}
             >
               {cities.map((city) => (
-                <MenuItem key={city} value={city}>
-                  {city}
-                </MenuItem>
+                <MenuItem key={city} value={city}>{city}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -116,64 +113,27 @@ const Navbar: React.FC = () => {
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             transformOrigin={{ vertical: "top", horizontal: "right" }}
           >
-            <Box
-              sx={{
-                px: 2,
-                py: 1,
-                display: "flex",
-                flexDirection: "column",
-                gap: 1,
-                minWidth: 180,
-              }}
-            >
+            <Box sx={{ px: 2, py: 1, display: "flex", flexDirection: "column", gap: 1, minWidth: 180 }}>
               {username && (
-                <Typography
-                  variant="subtitle1"
-                  sx={{ fontWeight: "bold", mb: 1 }}
-                >
-                  Welcome, {username}
+                <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
+                  {t("welcome", { name: username })}
                 </Typography>
               )}
 
-              {/* دکمه‌های زبان فقط ظاهری */}
-              <Typography variant="subtitle2">Language</Typography>
+              <Typography variant="subtitle2">{t("language")}</Typography>
               <Box sx={{ display: "flex", gap: 1 }}>
-                <Button variant="outlined" size="small">
-                  FA
-                </Button>
-                <Button variant="outlined" size="small">
-                  EN
-                </Button>
+                <Button variant={lang === "fa" ? "contained" : "outlined"} size="small" onClick={() => setLanguage("fa")}>FA</Button>
+                <Button variant={lang === "en" ? "contained" : "outlined"} size="small" onClick={() => setLanguage("en")}>EN</Button>
               </Box>
 
-              <Typography variant="subtitle2" sx={{ mt: 1 }}>
-                Theme ({mode})
-              </Typography>
+              <Typography variant="subtitle2" sx={{ mt: 1 }}>{t("theme")} ({mode})</Typography>
               <Box sx={{ display: "flex", gap: 1 }}>
-                <Button
-                  variant={mode === "light" ? "contained" : "outlined"}
-                  size="small"
-                  onClick={() => toggleTheme("light")}
-                >
-                  Light
-                </Button>
-                <Button
-                  variant={mode === "dark" ? "contained" : "outlined"}
-                  size="small"
-                  onClick={() => toggleTheme("dark")}
-                >
-                  Dark
-                </Button>
+                <Button variant={mode === "light" ? "contained" : "outlined"} size="small" onClick={() => toggleTheme("light")}>Light</Button>
+                <Button variant={mode === "dark" ? "contained" : "outlined"} size="small" onClick={() => toggleTheme("dark")}>Dark</Button>
               </Box>
 
-              <Button
-                variant="contained"
-                color="error"
-                size="small"
-                sx={{ mt: 2 }}
-                onClick={handleLogout}
-              >
-                Logout
+              <Button variant="contained" color="error" size="small" sx={{ mt: 2 }} onClick={handleLogout}>
+                {t("logout")}
               </Button>
             </Box>
           </Menu>

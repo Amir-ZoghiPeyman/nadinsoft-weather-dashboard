@@ -9,8 +9,14 @@ import {
   Typography,
   CssBaseline,
   useTheme,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import { useThemeContext } from "../context/ThemeContext";
+import { useTranslation } from "react-i18next";
+import { useLanguage } from "../context/LanguageContext";
 
 interface LoginProps {
   onLogin: (username: string) => void;
@@ -22,11 +28,13 @@ export default function Login({ onLogin }: LoginProps) {
   const navigate = useNavigate();
   const theme = useTheme();
   const { mode } = useThemeContext();
+  const { t, i18n } = useTranslation();
+  const { lang, setLanguage } = useLanguage();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) {
-      setError("Please enter your name before logging in.");
+      setError(t("pleaseEnterName"));
       return;
     }
     setError("");
@@ -46,8 +54,9 @@ export default function Login({ onLogin }: LoginProps) {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          px: 20,
+          px: 4,
           transition: "background-color 0.3s ease",
+          direction: lang === "fa" ? "rtl" : "ltr",
         }}
       >
         <Card
@@ -61,7 +70,6 @@ export default function Login({ onLogin }: LoginProps) {
             bgcolor: theme.palette.background.paper,
           }}
         >
-          {/* فرم لاگین */}
           <Grid
             item
             xs={12}
@@ -80,7 +88,7 @@ export default function Login({ onLogin }: LoginProps) {
               gutterBottom
               color={theme.palette.text.primary}
             >
-              Login
+              {t("login")}
             </Typography>
 
             <Box
@@ -95,7 +103,7 @@ export default function Login({ onLogin }: LoginProps) {
               }}
             >
               <TextField
-                label="Enter Your Name"
+                label={t("enterName")}
                 variant="outlined"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -109,12 +117,25 @@ export default function Login({ onLogin }: LoginProps) {
                 color="primary"
                 sx={{ py: 1.2, fontWeight: "bold", mt: { md: 10 } }}
               >
-                LOGIN
+                {t("login")}
               </Button>
             </Box>
+
+            <FormControl sx={{ mt: 3, minWidth: 120 }}>
+              <InputLabel id="language-select-label">
+                {t("language")}
+              </InputLabel>
+              <Select
+                labelId="language-select-label"
+                value={lang}
+                onChange={(e) => setLanguage(e.target.value)}
+              >
+                <MenuItem value="en">English</MenuItem>
+                <MenuItem value="fa">فارسی</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
 
-          {/* تصاویر سمت راست با استایل اصلی */}
           <Grid
             item
             xs={12}
@@ -130,7 +151,7 @@ export default function Login({ onLogin }: LoginProps) {
               display="flex"
               flexDirection="column"
               alignItems="center"
-              mx={14}
+              mx={4}
             >
               <Box
                 component="img"
