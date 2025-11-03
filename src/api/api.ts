@@ -1,23 +1,28 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: import.meta.env.BASE_URL,
-  params: {
-    appid: import.meta.env.API_KEY,
-    units: "metric",
-  },
-});
+const API_KEY = "b58b2eba2534575694b6098bff6a8cfa";
+const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
-export default api;
+export const getCurrentWeather = async (city: string) => {
+  const res = await axios.get(`${BASE_URL}/weather`, {
+    params: {
+      q: city,
+      appid: API_KEY,
+      units: "metric",
+      lang: "en",
+    },
+  });
+  return res.data;
+};
 
-export const getWeatherByCity = async (city: string) => {
-  try {
-    const response = await api.get("/weather", {
-      params: { q: city },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching weather:", error);
-    throw error;
-  }
+export const getForecast = async (city: string) => {
+  const res = await axios.get(`${BASE_URL}/forecast`, {
+    params: {
+      q: city,
+      appid: API_KEY,
+      units: "metric",
+      lang: "en",
+    },
+  });
+  return res.data;
 };
