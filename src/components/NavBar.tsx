@@ -11,12 +11,16 @@ import {
   FormControl,
   InputLabel,
   Box,
+  useTheme,
 } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useThemeContext } from "../context/ThemeContext";
 
 const Navbar: React.FC = () => {
+  const theme = useTheme();
+  const { mode, toggleTheme } = useThemeContext();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [cities, setCities] = useState<string[]>([]);
   const [selectedCity, setSelectedCity] = useState<string>("");
@@ -30,7 +34,9 @@ const Navbar: React.FC = () => {
 
     const fetchCities = async () => {
       try {
-        const res = await axios.get("https://countriesnow.space/api/v0.1/countries");
+        const res = await axios.get(
+          "https://countriesnow.space/api/v0.1/countries"
+        );
         const iran = res.data.data.find((c: any) => c.country === "Iran");
         setCities(iran?.cities.slice(0, 10) || []);
       } catch (err) {
@@ -56,10 +62,12 @@ const Navbar: React.FC = () => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          backgroundColor: "white",
+          backgroundColor: theme.palette.background.paper,
+          color: theme.palette.text.primary,
+          transition: "background-color 0.3s ease",
         }}
       >
-        
+        {/* Logo */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Box
             component="img"
@@ -67,16 +75,20 @@ const Navbar: React.FC = () => {
             alt="weather logo"
             sx={{ width: 50, borderRadius: "50%" }}
           />
-          <Typography variant="h6" sx={{ fontWeight: "bold", color: "#003464" }}>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
             Weather Dashboard
           </Typography>
         </Box>
 
-        
+        {/* Menu */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <FormControl
             size="small"
-            sx={{ minWidth: 150, backgroundColor: "white", borderRadius: 1 }}
+            sx={{
+              minWidth: 150,
+              backgroundColor: theme.palette.background.default,
+              borderRadius: 1,
+            }}
           >
             <InputLabel id="city-label">City</InputLabel>
             <Select
@@ -93,7 +105,7 @@ const Navbar: React.FC = () => {
             </Select>
           </FormControl>
 
-          <IconButton sx={{ color: "#BBC1C4" }} onClick={handleMenuOpen}>
+          <IconButton color="inherit" onClick={handleMenuOpen}>
             <SettingsIcon />
           </IconButton>
 
@@ -117,12 +129,13 @@ const Navbar: React.FC = () => {
               {username && (
                 <Typography
                   variant="subtitle1"
-                  sx={{ fontWeight: "bold", color: "#003464", mb: 1 }}
+                  sx={{ fontWeight: "bold", mb: 1 }}
                 >
                   Welcome, {username}
                 </Typography>
               )}
 
+              {/* دکمه‌های زبان فقط ظاهری */}
               <Typography variant="subtitle2">Language</Typography>
               <Box sx={{ display: "flex", gap: 1 }}>
                 <Button variant="outlined" size="small">
@@ -134,13 +147,21 @@ const Navbar: React.FC = () => {
               </Box>
 
               <Typography variant="subtitle2" sx={{ mt: 1 }}>
-                Theme
+                Theme ({mode})
               </Typography>
               <Box sx={{ display: "flex", gap: 1 }}>
-                <Button variant="outlined" size="small">
+                <Button
+                  variant={mode === "light" ? "contained" : "outlined"}
+                  size="small"
+                  onClick={() => toggleTheme("light")}
+                >
                   Light
                 </Button>
-                <Button variant="outlined" size="small">
+                <Button
+                  variant={mode === "dark" ? "contained" : "outlined"}
+                  size="small"
+                  onClick={() => toggleTheme("dark")}
+                >
                   Dark
                 </Button>
               </Box>

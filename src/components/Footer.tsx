@@ -1,8 +1,10 @@
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, Typography, IconButton, useTheme } from "@mui/material";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 export default function Footer() {
+  const theme = useTheme();
+
   return (
     <Box
       component="footer"
@@ -14,41 +16,41 @@ export default function Footer() {
         alignItems: "center",
         justifyContent: "space-between",
         flexDirection: "row",
-        backgroundColor: (theme) =>
+        backgroundColor:
           theme.palette.mode === "light"
             ? theme.palette.grey[200]
             : theme.palette.grey[900],
+        color: theme.palette.text.primary,
+        transition: "background-color 0.3s ease",
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
         <Box
           component="img"
-          src="../../public/imgs/nadinsoft.png"
+          src="/imgs/nadinsoft.png"
           alt="nadinsoft"
-          sx={{
-            width: 50,
-          }}
+          sx={{ width: 50 }}
         />
-        <Typography variant="body2" color="#003464">
+        <Typography variant="body2">
           All rights of this site are reserved for Nadin Sadr Aria Engineering
           Company.
         </Typography>
       </Box>
+
       <Box sx={{ display: "flex", gap: 4 }}>
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <IconButton sx={{ color: "#BBC1C4" }}>
-            <MailOutlineIcon sx={{ color: "#003464" }} />
+          <IconButton color="inherit">
+            <MailOutlineIcon />
           </IconButton>
-          <Typography variant="body2" color="#003464" sx={{ mt: 0.5 }}>
-            contact us : info@nadin.ir
-          </Typography>
+          <Typography variant="body2">contact us : info@nadin.ir</Typography>
         </Box>
+
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <IconButton sx={{ color: "#BBC1C4" }}>
-            <CalendarMonthOutlinedIcon sx={{ color: "#003464" }} />
+          <IconButton color="inherit">
+            <CalendarMonthOutlinedIcon />
           </IconButton>
-          <Typography variant="body2" color="#003464" sx={{ mt: 0.5 }}>
-            12:25 . Monday 23 December 2023
+          <Typography variant="body2">
+            12:25 · Monday 23 December 2023
           </Typography>
         </Box>
       </Box>
