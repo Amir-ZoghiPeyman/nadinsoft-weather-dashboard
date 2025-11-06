@@ -1,21 +1,21 @@
+import { CssBaseline } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { CssBaseline } from "@mui/material";
+import { CityProvider } from "./context/CityContext";
+import { LanguageProvider } from "./context/LanguageContext";
 import { CustomThemeProvider } from "./context/ThemeContext";
 import "./utils/i18n";
-import { LanguageProvider } from "./context/LanguageContext";
-import { CityProvider } from "./context/CityContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <LanguageProvider>
-      <CustomThemeProvider>
+    <CustomThemeProvider>
+      <LanguageProvider>
         <CityProvider>
           <CssBaseline />
           <App />
         </CityProvider>
-      </CustomThemeProvider>
-    </LanguageProvider>
+      </LanguageProvider>
+    </CustomThemeProvider>
   </React.StrictMode>
 );

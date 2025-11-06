@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
   Card,
+  CssBaseline,
+  FormControl,
   Grid,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
   Typography,
-  CssBaseline,
   useTheme,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
 } from "@mui/material";
-import { useThemeContext } from "../context/ThemeContext";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
-
+import foggy from "/imgs/Moon cloud fast wind.png";
+import rainy from "/imgs/Moon cloud mid rain.png";
+import sunny from "/imgs/Sun cloud angled rain.png";
 interface LoginProps {
   onLogin: (username: string) => void;
 }
@@ -27,8 +28,7 @@ export default function Login({ onLogin }: LoginProps) {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
-  const { mode } = useThemeContext();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { lang, setLanguage } = useLanguage();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -39,7 +39,6 @@ export default function Login({ onLogin }: LoginProps) {
     }
     setError("");
     onLogin(name);
-    localStorage.setItem("username", name);
     navigate("/dashboard");
   };
 
@@ -120,20 +119,6 @@ export default function Login({ onLogin }: LoginProps) {
                 {t("login")}
               </Button>
             </Box>
-
-            <FormControl sx={{ mt: 3, minWidth: 120 }}>
-              <InputLabel id="language-select-label">
-                {t("language")}
-              </InputLabel>
-              <Select
-                labelId="language-select-label"
-                value={lang}
-                onChange={(e) => setLanguage(e.target.value)}
-              >
-                <MenuItem value="en">English</MenuItem>
-                <MenuItem value="fa">فارسی</MenuItem>
-              </Select>
-            </FormControl>
           </Grid>
 
           <Grid
@@ -141,7 +126,7 @@ export default function Login({ onLogin }: LoginProps) {
             xs={12}
             md={6}
             sx={{
-              bgcolor: "#D8E9F7",
+              bgcolor: "#404961",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -155,7 +140,7 @@ export default function Login({ onLogin }: LoginProps) {
             >
               <Box
                 component="img"
-                src="/imgs/Sun cloud angled rain.png"
+                src={sunny}
                 alt="sunny"
                 sx={{
                   width: { xs: 140, md: 180 },
@@ -166,7 +151,7 @@ export default function Login({ onLogin }: LoginProps) {
               />
               <Box
                 component="img"
-                src="/imgs/Moon cloud mid rain.png"
+                src={rainy}
                 alt="rainy"
                 sx={{
                   width: { xs: 140, md: 180 },
@@ -176,7 +161,7 @@ export default function Login({ onLogin }: LoginProps) {
               />
               <Box
                 component="img"
-                src="/imgs/Moon cloud fast wind.png"
+                src={foggy}
                 alt="foggy"
                 sx={{
                   width: { xs: 140, md: 180 },
@@ -188,6 +173,17 @@ export default function Login({ onLogin }: LoginProps) {
             </Box>
           </Grid>
         </Card>
+        <FormControl sx={{ mt: 3, minWidth: 120 }}>
+          <InputLabel id="language-select-label">{t("language")}</InputLabel>
+          <Select
+            labelId="language-select-label"
+            value={lang}
+            onChange={(e) => setLanguage(e.target.value)}
+          >
+            <MenuItem value="en">English</MenuItem>
+            <MenuItem value="fa">فارسی</MenuItem>
+          </Select>
+        </FormControl>
       </Box>
     </>
   );

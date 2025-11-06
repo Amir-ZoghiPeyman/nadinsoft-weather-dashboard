@@ -1,9 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
-import NoMatch from "./pages/NoMatch";
 import Layout from "./layout/Layout";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import NoMatch from "./pages/NoMatch";
 
 export default function App() {
   const handleLogin = (username: string) => {
@@ -13,17 +13,18 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route index element={<Navigate to="/login" />} />
+        <Route index path="/login" element={<Login onLogin={handleLogin} />} />
+
+        {/*ProtectedRoute for the Dashboard's security*/}
         <Route
-          path="/"
           element={
             <ProtectedRoute>
               <Layout />
             </ProtectedRoute>
           }
         >
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Navigate to="/dashboard" />} />
         </Route>
 
         <Route path="*" element={<NoMatch />} />
