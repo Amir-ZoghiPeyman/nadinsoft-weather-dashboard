@@ -162,10 +162,7 @@ https://api.openweathermap.org/data/2.5/weather?q=Tehran&appid=YOUR_API_KEY&unit
 
 ## 🧾 Task Reference
 
-This project was built according to the **NadinSoft React.js Test Project** specifications:  
-[📄 Nadin Soft Task - React.pdf](./Nadin%20Soft%20Task%20-%20React.pdf)
-
-Figma Design: [View on Figma](https://www.figma.com/design/9pyq9bj4LaMOot6j0QAmur/Nadinsoft-Task---Frontend?node-id=0-1)
+This project was built according to the **NadinSoft React.js Test Project** specifications
 
 ---
 
