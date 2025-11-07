@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
   const popularCities = [
     "Tehran",
     "London",
-    "New York",
+    "NewYork",
     "Paris",
     "Tokyo",
     "Berlin",
@@ -78,12 +78,19 @@ const Navbar: React.FC = () => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: theme.palette.navbar.main,
           color: theme.palette.text.primary,
           flexDirection: lang === "fa" ? "row-reverse" : "row",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            flexDirection: lang === "fa" ? "row-reverse" : "row",
+          }}
+        >
           <Box
             component="img"
             src="/imgs/weather.png"
@@ -91,11 +98,18 @@ const Navbar: React.FC = () => {
             sx={{ width: 50, borderRadius: "50%" }}
           />
           <Typography variant="h6" fontWeight="bold">
-            Weather Dashboard
+            {t("weatherDashboard")}
           </Typography>
         </Box>
 
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            flexDirection: lang === "fa" ? "row-reverse" : "row",
+          }}
+        >
           <FormControl size="small" sx={{ minWidth: 150 }}>
             <InputLabel id="city-label">{t("city")}</InputLabel>
             <Select
@@ -105,7 +119,7 @@ const Navbar: React.FC = () => {
             >
               {popularCities.map((c) => (
                 <MenuItem key={c} value={c}>
-                  {c}
+                  {t(`cities.${c}`)}
                 </MenuItem>
               ))}
             </Select>
@@ -132,29 +146,52 @@ const Navbar: React.FC = () => {
               {username && (
                 <Typography
                   variant="subtitle1"
-                  sx={{ fontWeight: "bold", mb: 1 }}
+                  sx={{
+                    fontWeight: "bold",
+                    mb: 1,
+                    direction: lang === "fa" ? "rtl" : "ltr",
+                  }}
                 >
                   {t("welcome", { name: username })}
                 </Typography>
               )}
-              <Typography variant="subtitle2">{t("language")}</Typography>
-              <Box sx={{ display: "flex", gap: 1 }}>
+              <Typography
+                variant="subtitle2"
+                sx={{ direction: lang === "fa" ? "rtl" : "ltr" }}
+              >
+                {t("language")}
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 1,
+                  mb: 2,
+                  width: "100%",
+                }}
+              >
                 <Button
+                  fullWidth
+                  sx={{ flex: 1 }}
                   variant={lang === "fa" ? "contained" : "outlined"}
-                  size="small"
                   onClick={() => setLanguage("fa")}
                 >
                   FA
                 </Button>
+
                 <Button
+                  fullWidth
+                  sx={{ flex: 1 }}
                   variant={lang === "en" ? "contained" : "outlined"}
-                  size="small"
                   onClick={() => setLanguage("en")}
                 >
                   EN
                 </Button>
               </Box>
-              <Typography variant="subtitle2">
+
+              <Typography
+                variant="subtitle2"
+                sx={{ direction: lang === "fa" ? "rtl" : "ltr" }}
+              >
                 {t("theme")} ({mode})
               </Typography>
               <Box sx={{ display: "flex", gap: 1 }}>

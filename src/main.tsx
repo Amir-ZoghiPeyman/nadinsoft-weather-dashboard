@@ -1,3 +1,8 @@
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import "@fontsource/vazir/400.css";
+import "@fontsource/vazir/700.css";
 import { CssBaseline } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom/client";
