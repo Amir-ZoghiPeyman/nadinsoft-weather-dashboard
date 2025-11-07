@@ -78,7 +78,9 @@ npm install
 Create a `.env` file in the root directory and add your OpenWeather API key:
 
 ```bash
-VITE_WEATHER_API_KEY=your_openweather_api_key
+VITE_API_KEY=your_openweather_api_key
+VITE_BASE_URL = https://api.openweathermap.org/data/2.5
+
 ```
 
 ### 4. Run the Development Server
