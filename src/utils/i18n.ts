@@ -21,7 +21,7 @@ i18n.use(initReactI18next).init({
         rights:
           "All rights of this site are reserved for Nadin Sadr Aria Engineering Company.",
         city: "City",
-
+        date: "12:25 · Monday 23 December 2023",
         weatherDashboard: "Weather Dashboard",
         dashboardOverview: "Dashboard Overview",
         forecast: "5-Day Forecast",
@@ -34,6 +34,25 @@ i18n.use(initReactI18next).init({
         temp: "Temperature",
         maxTemp: "Max Temp",
         minTemp: "Min Temp",
+        dailyAvgTemp: "Daily Average Temperature",
+        cities: {
+          Tehran: "Tehran",
+          London: "London",
+          NewYork: "New York",
+          Paris: "Paris",
+          Tokyo: "Tokyo",
+          Berlin: "Berlin",
+          Dubai: "Dubai",
+          Sydney: "Sydney",
+          Moscow: "Moscow",
+          Toronto: "Toronto",
+        },
+        notFound: {
+          title: "Page Not Found",
+          message:
+            "The page you’re looking for doesn’t exist or has been moved.",
+          goHome: "Go Home",
+        },
       },
     },
     fa: {
@@ -46,10 +65,9 @@ i18n.use(initReactI18next).init({
         theme: "تم",
         logout: "خروج",
         contact: "تماس با ما: info@nadin.ir",
-        rights:
-          "تمام حقوق این سایت متعلق به شرکت مهندسی نادین صدر آریا می‌باشد.",
+        rights: "همه حقوق این سایت برای شرکت مهندسی نادین صدر آریا محفوظ است.",
         city: "شهر",
-
+        date: "12.25 شنبه 2 دی 1402",
         weatherDashboard: "داشبورد آب‌وهوا",
         dashboardOverview: "نمای کلی داشبورد",
         forecast: "پیش‌بینی ۵ روز آینده",
@@ -62,6 +80,24 @@ i18n.use(initReactI18next).init({
         temp: "دما",
         maxTemp: "بیشینه دما",
         minTemp: "کمینه دما",
+        dailyAvgTemp: "میانگین دمای روزانه",
+        cities: {
+          Tehran: "تهران",
+          London: "لندن",
+          NewYork: "نیویورک",
+          Paris: "پاریس",
+          Tokyo: "توکیو",
+          Berlin: "برلین",
+          Dubai: "دبی",
+          Sydney: "سیدنی",
+          Moscow: "مسکو",
+          Toronto: "تورنتو",
+        },
+        notFound: {
+          title: "صفحه پیدا نشد",
+          message: "صفحه‌ای که به دنبالش هستید وجود ندارد یا جابه‌جا شده است.",
+          goHome: "بازگشت به خانه",
+        },
       },
     },
   },

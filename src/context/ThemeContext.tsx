@@ -35,12 +35,19 @@ export const CustomThemeProvider: React.FC<{ children: React.ReactNode }> = ({
           ...(mode === "light"
             ? {
                 background: { default: "#EAF6FF" },
-                primary: { main: "#003464" },
+                primary: { main: "#2196F3" },
+                secondary: { main: "#D3E1E7" },
+                navbar: { main: "#F3FAFE" },
               }
             : {
                 background: { default: "#151D32" },
                 primary: { main: "#90caf9" },
+                secondary: { main: "#404961" },
+                navbar: { main: "#151D32" },
               }),
+        },
+        typography: {
+          fontFamily: `'Vazir', 'Roboto', sans-serif`,
         },
       }),
     [mode]
