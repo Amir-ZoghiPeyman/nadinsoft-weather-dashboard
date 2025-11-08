@@ -1,17 +1,18 @@
 import {
+  Box,
+  CircularProgress,
   Container,
   Grid,
   Typography,
   useTheme,
-  CircularProgress,
-  Box,
 } from "@mui/material";
-import { useTranslation } from "react-i18next";
 import { Suspense, lazy } from "react";
+import { useTranslation } from "react-i18next";
 
 const CurrentWeatherCard = lazy(() => import("../components/CurrentWeather"));
 const WeatherDetailsCard = lazy(() => import("../components/WeatherDetails"));
 const ForecastList = lazy(() => import("../components/ForecastList"));
+
 
 export default function Dashboard() {
   const { t } = useTranslation();

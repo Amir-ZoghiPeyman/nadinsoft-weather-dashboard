@@ -55,6 +55,7 @@ i18n.use(initReactI18next).init({
         },
       },
     },
+
     fa: {
       translation: {
         login: "ورود",
