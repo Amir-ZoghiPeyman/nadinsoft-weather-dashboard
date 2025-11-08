@@ -1,4 +1,10 @@
-import { Card, CardContent, Typography, useTheme, Skeleton } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Skeleton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -14,8 +20,7 @@ import { getForecast } from "../api/api";
 import { useCity } from "../context/CityContext";
 
 export default function MonthlyTemperatureChart() {
-  const { i18n, t } = useTranslation();
-  const isRTL = i18n.language === "fa";
+  const { t } = useTranslation();
   const theme = useTheme();
   const { city } = useCity();
   const [chartData, setChartData] = useState<any[]>([]);

@@ -3,15 +3,15 @@ import {
   Box,
   Card,
   CardContent,
+  Skeleton,
   Typography,
   useTheme,
-  Skeleton,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { getCurrentWeather } from "../api/api";
 import { useCity } from "../context/CityContext";
 import { weatherIconMap } from "../utils/icons";
-import { useTranslation } from "react-i18next";
 
 export default function CurrentWeatherCard() {
   const { city } = useCity();
@@ -21,7 +21,7 @@ export default function CurrentWeatherCard() {
 
   useEffect(() => {
     if (!city) return;
-    setData(null); 
+    setData(null);
     getCurrentWeather(city).then(setData);
   }, [city]);
 

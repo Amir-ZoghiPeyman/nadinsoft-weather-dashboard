@@ -13,7 +13,6 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -26,10 +25,8 @@ const Navbar: React.FC = () => {
   const { mode, toggleTheme } = useThemeContext();
   const { t } = useTranslation();
   const { lang, setLanguage } = useLanguage();
-  const { city, setCity } = useCity(); //
-
+  const { city, setCity } = useCity();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [cities, setCities] = useState<string[]>([]);
   const [username, setUsername] = useState<string>("");
   const navigate = useNavigate();
 
@@ -49,19 +46,6 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const storedName = localStorage.getItem("username");
     if (storedName) setUsername(storedName);
-
-    const fetchCities = async () => {
-      try {
-        const res = await axios.get(
-          "https://countriesnow.space/api/v0.1/countries"
-        );
-        const iran = res.data.data.find((c: any) => c.country === "Iran");
-        setCities(iran?.cities.slice(0, 10) || []);
-      } catch (err) {
-        console.error("Error fetching cities:", err);
-      }
-    };
-    fetchCities();
   }, []);
 
   const handleMenuOpen = (e: React.MouseEvent<HTMLElement>) =>
@@ -155,20 +139,14 @@ const Navbar: React.FC = () => {
                   {t("welcome", { name: username })}
                 </Typography>
               )}
+
               <Typography
                 variant="subtitle2"
                 sx={{ direction: lang === "fa" ? "rtl" : "ltr" }}
               >
                 {t("language")}
               </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 1,
-                  mb: 2,
-                  width: "100%",
-                }}
-              >
+              <Box sx={{ display: "flex", gap: 1, mb: 2, width: "100%" }}>
                 <Button
                   fullWidth
                   sx={{ flex: 1 }}
@@ -177,7 +155,6 @@ const Navbar: React.FC = () => {
                 >
                   FA
                 </Button>
-
                 <Button
                   fullWidth
                   sx={{ flex: 1 }}

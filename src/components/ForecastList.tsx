@@ -1,9 +1,9 @@
 import { Box, Card, CardContent, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { getForecast } from "../api/api";
 import { useCity } from "../context/CityContext";
 import { weatherIconMap } from "../utils/icons";
-import { useTranslation } from "react-i18next";
 
 export default function ForecastList() {
   const { city } = useCity();

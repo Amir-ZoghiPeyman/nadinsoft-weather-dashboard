@@ -1,11 +1,23 @@
-import React, { createContext, useMemo, useState, useContext } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import React, { createContext, useContext, useMemo, useState } from "react";
 
 type ThemeMode = "light" | "dark";
 
 interface ThemeContextType {
   mode: ThemeMode;
   toggleTheme: (newMode: ThemeMode) => void;
+}
+declare module "@mui/material/styles" {
+  interface Palette {
+    navbar: {
+      main: string;
+    };
+  }
+  interface PaletteOptions {
+    navbar?: {
+      main?: string;
+    };
+  }
 }
 
 const ThemeContext = createContext<ThemeContextType>({
