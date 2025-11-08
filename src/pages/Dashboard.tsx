@@ -13,7 +13,6 @@ const CurrentWeatherCard = lazy(() => import("../components/CurrentWeather"));
 const WeatherDetailsCard = lazy(() => import("../components/WeatherDetails"));
 const ForecastList = lazy(() => import("../components/ForecastList"));
 
-
 export default function Dashboard() {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -29,14 +28,14 @@ export default function Dashboard() {
   return (
     <Container maxWidth="lg" sx={{ pt: 2 }}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
+        <Grid>
           <Grid container display={"flex"} gap={4}>
-            <Grid item xs={12}>
+            <Grid>
               <Suspense fallback={fallbackBox}>
                 <CurrentWeatherCard />
               </Suspense>
             </Grid>
-            <Grid item xs={12}>
+            <Grid>
               <Suspense fallback={fallbackBox}>
                 <WeatherDetailsCard />
               </Suspense>
@@ -44,9 +43,9 @@ export default function Dashboard() {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} md={8}>
+        <Grid>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
+            <Grid>
               <Box
                 sx={{
                   backgroundColor: theme.palette.secondary.main,

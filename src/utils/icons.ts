@@ -1,7 +1,7 @@
-import cloudy from "../../public/imgs/Cloudy.png";
-import rainy from "../../public/imgs/Rain cloud.png";
-import thunder from "../../public/imgs/storm.png";
-import sunny from "../../public/imgs/Sunny.png";
+import cloudy from "../assets/imgs/Cloudy.png";
+import rainy from "../assets/imgs/Rain cloud.png";
+import thunder from "../assets/imgs/storm.png";
+import sunny from "../assets/imgs/Sunny.png";
 
 export const weatherIconMap: Record<string, string> = {
   Clear: sunny,

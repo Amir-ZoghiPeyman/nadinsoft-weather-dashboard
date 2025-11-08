@@ -73,9 +73,6 @@ export default function Login({ onLogin }: LoginProps) {
         }}
       >
         <Grid
-          item
-          xs={12}
-          md={6}
           sx={{
             p: 4,
             display: "flex",
@@ -131,9 +128,6 @@ export default function Login({ onLogin }: LoginProps) {
         </Grid>
 
         <Grid
-          item
-          xs={12}
-          md={6}
           sx={{
             bgcolor: theme.palette.secondary.main,
             display: "flex",

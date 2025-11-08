@@ -15,7 +15,6 @@ export default function App() {
       <Routes>
         <Route index path="/login" element={<Login onLogin={handleLogin} />} />
 
-        {/*ProtectedRoute for the Dashboard's security*/}
         <Route
           element={
             <ProtectedRoute>

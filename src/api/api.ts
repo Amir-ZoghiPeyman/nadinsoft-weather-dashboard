@@ -3,6 +3,7 @@ import axios from "axios";
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
+// Current weather Data
 export const getCurrentWeather = async (city: string) => {
   const res = await axios.get(`${BASE_URL}/weather`, {
     params: {
@@ -15,6 +16,7 @@ export const getCurrentWeather = async (city: string) => {
   return res.data;
 };
 
+// Forecast Data
 export const getForecast = async (city: string) => {
   const res = await axios.get(`${BASE_URL}/forecast`, {
     params: {

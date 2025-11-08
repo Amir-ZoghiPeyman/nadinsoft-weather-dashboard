@@ -14,6 +14,21 @@ export default function Footer() {
       ? "linear-gradient(90deg, #F3FAFE, #CCDDDD9E 61.96%, #F3FAFE)"
       : "linear-gradient(90deg, #292F45, #3F4861, #151D32)";
 
+  const contrastColor = theme.palette.getContrastText(
+    theme.palette.mode === "light" ? "#BBDEFB" : "#1976D2"
+  );
+
+  const flexCenterGap = (gap: number | string = 1) => ({
+    display: "flex",
+    alignItems: "center",
+    gap,
+  });
+
+  const footerItems = [
+    { icon: <MailOutlineIcon fontSize="small" />, label: t("contact") },
+    { icon: <CalendarMonthOutlinedIcon fontSize="small" />, label: t("date") },
+  ];
+
   return (
     <Box
       component="footer"
@@ -24,17 +39,17 @@ export default function Footer() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        flexDirection: "row",
+        flexDirection: { xs: "column", sm: "row" },
+        gap: { xs: 1, sm: 0 },
         background: gradientBg,
-        color: theme.palette.getContrastText(
-          theme.palette.mode === "light" ? "#BBDEFB" : "#1976D2"
-        ),
+        color: contrastColor,
         transition: "background 0.4s ease",
         direction: lang === "fa" ? "rtl" : "ltr",
         boxShadow: "0 -2px 6px rgba(0,0,0,0.1)",
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+      {/* Logo & Description */}
+      <Box sx={flexCenterGap(2)}>
         <Box
           component="img"
           src="/imgs/nadinsoft.png"
@@ -46,20 +61,16 @@ export default function Footer() {
         </Typography>
       </Box>
 
+      {/* Email & Date */}
       <Box sx={{ display: "flex", gap: 4 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-          <IconButton color="inherit" size="small">
-            <MailOutlineIcon fontSize="small" />
-          </IconButton>
-          <Typography variant="body2">{t("contact")}</Typography>
-        </Box>
-
-        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-          <IconButton color="inherit" size="small">
-            <CalendarMonthOutlinedIcon fontSize="small" />
-          </IconButton>
-          <Typography variant="body2">{t("date")}</Typography>
-        </Box>
+        {footerItems.map((item, idx) => (
+          <Box key={idx} sx={flexCenterGap(0.5)}>
+            <IconButton color="inherit" size="small">
+              {item.icon}
+            </IconButton>
+            <Typography variant="body2">{item.label}</Typography>
+          </Box>
+        ))}
       </Box>
     </Box>
   );
